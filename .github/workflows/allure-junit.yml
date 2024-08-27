@@ -15,18 +15,10 @@ jobs:
       - name: Set up Chromium and ChromeDriver
         uses: browser-actions/setup-chrome@v1
         with:
-            chrome-version: 'latest'
+            chrome-version: 128
             install-chromedriver: true
             install-dependencies: true
 
-      - name: Install specific ChromeDriver version
-        run: |
-         wget -N http://chromedriver.storage.googleapis.com/$CHROME_DRIVER_VERSION/chromedriver_linux64.zip -P ~/
-         unzip ~/chromedriver_linux64.zip -d ~/
-         rm ~/chromedriver_linux64.zip
-         sudo mv -f ~/chromedriver /usr/local/bin/chromedriver
-         sudo chown root:root /usr/local/bin/chromedriver
-         sudo chmod 0755 /usr/local/bin/chromedriver
 
       - name: Verify installations
         run: |
