@@ -4,6 +4,7 @@ import br.com.dbccompany.dto.LoginDto;
 import br.com.dbccompany.factory.data.LoginData;
 import br.com.dbccompany.factory.selenium.Validation;
 import br.com.dbccompany.page.LoginPage;
+import io.qameta.allure.Allure;
 import io.qameta.allure.Description;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Story;
@@ -19,6 +20,13 @@ public class LoginTest extends LoginBaseTest {
     LoginData loginData = new LoginData();
     Validation validation = new Validation();
 
+    @Test
+    @Description("This is a simple test case for Allure report.")
+    public void exampleTest() {
+        Allure.step("Step 1: This is a simple step in the test case.");
+        // Simple assertion
+        assert true;
+    }
     @Test
     @Description(CT_LOGIN_001)
     public void test1validarLoginDadosValidos() {
