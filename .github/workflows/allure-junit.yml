@@ -12,12 +12,12 @@ jobs:
           distribution: zulu
           java-version: 17
 
-      - name: Set up Chrome browser
-        uses: browser-actions/setup-chrome@latest
+      - name: Set up Chromium and ChromeDriver
+        uses: browser-actions/setup-chrome@v1
         with:
-          chrome-version: '127.0.6533.119'
-          install-chromedriver: true
-          install-dependencies: true
+            chrome-version: 'latest'
+            install-chromedriver: true
+            install-dependencies: true
 
       - name: Install specific ChromeDriver version
         run: |
@@ -26,11 +26,11 @@ jobs:
                 sudo mv chromedriver /usr/local/bin/chromedriver
                 chromedriver --version
 
-      - name: Verify Chrome installation
-        run:  |
-          google-chrome --version
-          chromedriver --version
-          
+      - name: Verify installations
+        run: |
+                google-chrome --version || echo "Google Chrome is not installed"
+                chromium-browser --version || echo "Chromium is not installed"
+                chromedriver --version
 
       - name: Install dependencies
         run: mvn install -DskipTests
