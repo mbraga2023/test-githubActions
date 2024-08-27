@@ -12,10 +12,16 @@ jobs:
           distribution: zulu
           java-version: 17
 
-      - name: Install Google Chrome
-        run: |
-            chmod +x ./scripts/InstallChrome.sh
-                        ./scripts/InstallChrome.sh
+      - name: Set up Chrome browser
+        uses: browser-actions/setup-chrome@latest
+        with:
+          chrome-version: 'latest'
+
+      - name: Verify Chrome installation
+        run:  |
+          google-chrome --version
+          chromedriver --version
+          
 
       - name: Install dependencies
         run: mvn install -DskipTests
