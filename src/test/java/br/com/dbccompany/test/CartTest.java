@@ -56,6 +56,7 @@ public class CartTest extends BaseTest {
     public void testValidarFluxoCarrinhoComSucesso() {
         setUpLoginUsuarioComEndereco();
         cartPage.fluxoDeCompraComSucesso();
+        ;
     }
 
     @Test
