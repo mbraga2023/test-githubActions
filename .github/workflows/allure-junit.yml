@@ -13,14 +13,18 @@ jobs:
           java-version: 17
 
       - name: Set up Google Chrome
-      - uses: browser-actions/setup-chrome@v1
-      - run: chrome --version
-
-      - name: Set up ChromeDriver
         uses: browser-actions/setup-chrome@v1
         with:
-            chrome-version: 120
-            install-chromedriver: true
+          chrome-version: 'latest'
+
+      - name: Verify Chrome installation
+        run: google-chrome --version
+
+      - name: Set up ChromeDriver
+        uses: browser-actions/setup-chromedriver@v1
+        with:
+        chrome-version: 'latest'
+        install-chromedriver: true
 
       - name: Install dependencies
         run: mvn install -DskipTests
