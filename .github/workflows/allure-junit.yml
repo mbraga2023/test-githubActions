@@ -12,6 +12,19 @@ jobs:
           distribution: zulu
           java-version: 17
 
+      - name: Set up Google Chrome
+        uses: browser-actions/setup-chrome@v2
+        with:
+          chrome-version: 'latest'
+
+      - name: Set up ChromeDriver
+        uses: browser-actions/setup-chromedriver@v2
+        with:
+        chromedriver-version: 'latest'
+
+      - name: Install dependencies
+        run: mvn install -DskipTests
+
       - name: Run tests
         run: mvn clean test
 
