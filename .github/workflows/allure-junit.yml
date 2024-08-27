@@ -13,8 +13,8 @@ jobs:
           java-version: 17
 
       - name: Set up Google Chrome
-        uses: browser-actions/setup-chrome@v1
-        run: chrome --version
+      - uses: browser-actions/setup-chrome@v1
+      - run: chrome --version
 
       - name: Set up ChromeDriver
         uses: browser-actions/setup-chrome@v1
