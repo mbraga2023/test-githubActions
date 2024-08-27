@@ -27,7 +27,7 @@ jobs:
         run: mvn install -DskipTests
 
       - name: Run tests
-        run: mvn clean test
+        run: mvn clean test -Dchrome.headless=true
 
       - name: Load test report history
         uses: actions/checkout@v4
