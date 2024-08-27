@@ -115,7 +115,7 @@
                         </property>
                     </properties>
                     <includes>
-                        <include>**Test.java</include>
+                        <include>**Tests.java</include>
                     </includes>
                     <argLine>
                         -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
@@ -123,7 +123,7 @@
                     <systemProperties>
                         <property>
                             <name>allure.results.directory</name>
-                            <resultsDirectory>${project.build.directory}/target/allure-results</resultsDirectory>
+                            <value>${project.build.directory}/allure-results</value>
                         </property>
                         <property>
                             <name>junit.jupiter.extensions.autodetection.enabled</name>
@@ -154,6 +154,10 @@
                 <groupId>io.qameta.allure</groupId>
                 <artifactId>allure-maven</artifactId>
                 <version>${allure-maven.version}</version>
+                <configuration>
+                    <resultsDirectory>${project.build.directory}/allure-results</resultsDirectory>
+                    <reportDirectory>${project.build.directory}/allure-report</reportDirectory>
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
