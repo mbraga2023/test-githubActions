@@ -12,26 +12,10 @@ jobs:
           distribution: zulu
           java-version: 17
 
-      - name: Set up Google Chrome
-        uses: browser-actions/setup-chrome@v1
-        with:
-          chrome-version: 'latest'
-          install-chromedriver: true
-          install-dependencies: true
-
-      - name: Install specific ChromeDriver version
+      - name: Install Google Chrome
         run: |
-          wget https://chromedriver.storage.googleapis.com/127.0.6533.119/chromedriver_linux64.zip
-          unzip chromedriver_linux64.zip
-          sudo mv chromedriver /usr/local/bin/chromedriver
-          chromedriver --version
-
-      - name: Verify Chrome installation
-        run:  |
-          google-chrome --version
-          chromedriver --version
-          
-        
+            chmod +x ./scripts/InstallChrome.sh
+                        ./scripts/InstallChrome.sh
 
       - name: Install dependencies
         run: mvn install -DskipTests
