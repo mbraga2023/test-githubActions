@@ -50,11 +50,11 @@ jobs:
 
       - name: Run Chrome with debug flags
         run: |
-            mkdir -p /tmp/chrome-logs
-            export CHROME_LOG_FILE=/tmp/chrome-logs/chrome.log
-           /usr/bin/google-chrome --headless --no-sandbox --disable-dev-shm-usage --remote-debugging-port=9222 > $CHROME_LOG_FILE 2>&1 &
-            sleep 30
-            cat $CHROME_LOG_FILE
+                mkdir -p /tmp/chrome-logs
+                export CHROME_LOG_FILE=/tmp/chrome-logs/chrome.log
+               /usr/bin/google-chrome --headless --no-sandbox --disable-dev-shm-usage --remote-debugging-port=9222 > $CHROME_LOG_FILE 2>&1 &
+               sleep 30
+              cat $CHROME_LOG_FILE
 
       - name: Run tests and capture logs
         run: |
