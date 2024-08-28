@@ -15,14 +15,12 @@ public class BrowserService {
 
     public void initChromeDriver(String url) {
         ChromeOptions options = new ChromeOptions();
-        options.addArguments("--headless"); // Run in headless mode
+        if (System.getProperty("chrome.headless") != null && System.getProperty("chrome.headless").equals("true")) {
+            options.addArguments("--headless"); // Run in headless mode
+        }
         options.addArguments("--no-sandbox"); // Disable sandbox
         options.addArguments("--disable-dev-shm-usage"); // Overcome resource limits
         options.addArguments("--disable-gpu"); // Disable GPU acceleration
-        options.addArguments("--remote-debugging-port=9222"); // Debugging port
-        options.addArguments("--disable-software-rasterizer"); // Disable software rasterizer
-        options.addArguments("--no-first-run");
-        options.addArguments("--no-default-browser-check");
 
 
         driver = new ChromeDriver();

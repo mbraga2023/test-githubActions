@@ -48,12 +48,20 @@ jobs:
               ls -la /usr/bin/google-chrome
               ls -la /usr/bin/chromedriver
 
-      - name: Run tests and capture logs
+      - name: Run Chrome with debug flags
         run: |
           mkdir -p /tmp/chrome-logs
           export CHROME_LOG_FILE=/tmp/chrome-logs/chrome.log
+          /usr/bin/google-chrome --headless --no-sandbox --disable-dev-shm-usage --remote-debugging-port=9222 > $CHROME_LOG_FILE 2>&1 &
+          sleep 10
+          cat $CHROME_LOG_FILE
+
+      - name: Capture ChromeDriver logs
+        run: |
+          mkdir -p /tmp/chromedriver-logs
+          export CHROMEDRIVER_LOG_FILE=/tmp/chromedriver-logs/chromedriver.log
           mvn clean test -Dchrome.headless=true
-          cat /tmp/chrome-logs/chrome.log
+          cat $CHROMEDRIVER_LOG_FILE
 
 
       - name: Install dependencies
