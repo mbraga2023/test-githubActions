@@ -15,11 +15,22 @@ public class BrowserService {
 
     public void initChromeDriver(String url) {
         ChromeOptions options = new ChromeOptions();
-        options.addArguments("--headless");
-        options.addArguments("--no-sandbox");
-        options.addArguments("--disable-dev-shm-usage");
-        options.addArguments("--disable-gpu");
-        options.addArguments("--remote-debugging-port=9222");
+        options.addArguments("--headless"); // Run Chrome in headless mode
+        options.addArguments("--no-sandbox"); // Disable sandbox for CI environments
+        options.addArguments("--disable-dev-shm-usage"); // Overcome limited resource problems
+        options.addArguments("--disable-gpu"); // Disable GPU hardware acceleration
+        options.addArguments("--remote-debugging-port=9222"); // Debugging port
+        options.addArguments("--disable-software-rasterizer");
+
+        options.addArguments("--remote-debugging-address=0.0.0.0");
+        options.addArguments("--disable-extensions");
+        options.addArguments("--disable-plugins");
+        options.addArguments("--disable-software-rasterizer");
+        options.addArguments("--disable-background-timer-throttling");
+        options.addArguments("--disable-backgrounding-occluded-windows");
+        options.addArguments("--disable-translate");
+        options.addArguments("--no-first-run");
+        options.addArguments("--no-default-browser-check");
 
 
         driver = new ChromeDriver();
