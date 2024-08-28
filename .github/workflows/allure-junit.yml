@@ -30,10 +30,10 @@ jobs:
             sudo chmod +x /usr/bin/google-chrome
             
             # Download and install ChromeDriver
-            wget -O chromedriver-linux64.zip https://storage.googleapis.com/chrome-for-testing-public/128.0.6613.84/linux64/chromedriver-linux64.zip
-            unzip chromedriver-linux64.zip -d ~/chromedriver
-            
-            # Debug: List contents of the extracted directory
+          wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+        
+
+      # Debug: List contents of the extracted directory
             ls -la ~/chromedriver
             
             # Move ChromeDriver to the correct location
