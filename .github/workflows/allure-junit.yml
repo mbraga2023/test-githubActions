@@ -41,6 +41,11 @@ jobs:
           sudo mv ~/chromedriver/chromedriver-linux64/chromedriver /usr/bin/chromedriver
           sudo chmod +x /usr/bin/chromedriver
 
+      - name: Install necessary dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y wget unzip libnss3 libgconf-2-4
+
       - name: Verify installations
         run: |
                 google-chrome --version || echo "Google Chrome is not installed"
