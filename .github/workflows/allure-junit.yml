@@ -48,9 +48,12 @@ jobs:
 
       - name: Verify installations
         run: |
-                google-chrome --version || echo "Google Chrome is not installed"
-                chromium-browser --version || echo "Chromium is not installed"
-                chromedriver --version
+          sudo chmod +x /usr/bin/google-chrome
+          sudo chmod +x /usr/bin/chromedriver
+    
+          google-chrome --version || echo "Google Chrome is not installed"
+          chromium-browser --version || echo "Chromium is not installed"
+          chromedriver --version
 
       - name: Install dependencies
         run: mvn install -DskipTests

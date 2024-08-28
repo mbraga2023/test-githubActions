@@ -14,12 +14,13 @@ public class BrowserService {
     public static WebDriverWait wait;
 
     public void initChromeDriver(String url) {
-
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--headless");
         options.addArguments("--no-sandbox");
         options.addArguments("--disable-dev-shm-usage");
         options.addArguments("--disable-gpu");
+        options.addArguments("--remote-debugging-port=9222");
+
 
         driver = new ChromeDriver();
         wait = new WebDriverWait(driver, Duration.ofSeconds(10));
