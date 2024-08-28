@@ -22,7 +22,7 @@ public class BrowserService {
         options.addArguments("--remote-debugging-port=9222");
 
         driver = new ChromeDriver();
-        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait = new WebDriverWait(driver, Duration.ofSeconds(25));
         driver.get(url);
         driver.manage().window().maximize();
 
