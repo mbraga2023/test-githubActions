@@ -19,27 +19,32 @@ jobs:
 
       - name: Install specific versions of Chrome and ChromeDriver
         run: |
-                # Install dependencies
-                sudo apt-get update
-                sudo apt-get install -y wget unzip
-                
-                # Download and install Chrome
-                wget https://storage.googleapis.com/chrome-for-testing-public/128.0.6613.84/linux64/chrome-linux64.zip -O chrome-linux64.zip
-                unzip chrome-linux64.zip -d ~/chrome
-                sudo mv ~/chrome/chrome-linux64/chrome /usr/bin/google-chrome
-                sudo chmod +x /usr/bin/google-chrome
-                
-                # Download and install ChromeDriver
-                wget https://storage.googleapis.com/chrome-for-testing-public/128.0.6613.84/linux64/chromedriver-linux64.zip -O chromedriver-linux64.zip
-                unzip chromedriver-linux64.zip -d ~/chromedriver
-                sudo mv ~/chromedriver/chromedriver /usr/bin/chromedriver
-                sudo chmod +x /usr/bin/chromedriver
-                
-                # Optionally, install chrome-headless-shell
-                wget https://storage.googleapis.com/chrome-for-testing-public/128.0.6613.84/linux64/chrome-headless-shell-linux64.zip -O chrome-headless-shell-linux64.zip
-                unzip chrome-headless-shell-linux64.zip -d ~/chrome-headless-shell
-                sudo mv ~/chrome-headless-shell/chrome-headless-shell /usr/bin/chrome-headless-shell
-                sudo chmod +x /usr/bin/chrome-headless-shell
+            # Install dependencies
+            sudo apt-get update
+            sudo apt-get install -y wget unzip
+            
+            # Download and install Chrome
+            wget -O chrome-linux64.zip https://storage.googleapis.com/chrome-for-testing-public/128.0.6613.84/linux64/chrome-linux64.zip
+            unzip chrome-linux64.zip -d ~/chrome
+            sudo mv ~/chrome/chrome-linux64/chrome /usr/bin/google-chrome
+            sudo chmod +x /usr/bin/google-chrome
+            
+            # Download and install ChromeDriver
+            wget -O chromedriver-linux64.zip https://storage.googleapis.com/chrome-for-testing-public/128.0.6613.84/linux64/chromedriver-linux64.zip
+            unzip chromedriver-linux64.zip -d ~/chromedriver
+            
+            # Debug: List contents of the extracted directory
+            ls -la ~/chromedriver
+            
+            # Move ChromeDriver to the correct location
+            sudo mv ~/chromedriver/chromedriver /usr/bin/chromedriver
+            sudo chmod +x /usr/bin/chromedriver
+            
+            # Optionally, install chrome-headless-shell
+            wget -O chrome-headless-shell-linux64.zip https://storage.googleapis.com/chrome-for-testing-public/128.0.6613.84/linux64/chrome-headless-shell-linux64.zip
+            unzip chrome-headless-shell-linux64.zip -d ~/chrome-headless-shell
+            sudo mv ~/chrome-headless-shell/chrome-headless-shell /usr/bin/chrome-headless-shell
+            sudo chmod +x /usr/bin/chrome-headless-shell
 
       - name: Verify installations
         run: |
