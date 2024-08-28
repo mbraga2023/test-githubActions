@@ -17,10 +17,23 @@ jobs:
             sudo apt-get remove --purge -y google-chrome-stable chromium-browser chromedriver || true
             sudo apt-get autoremove -y
 
-      - uses: browser-actions/setup-chrome@v1
-        with:
-          chrome-version: 128
-          install-chromedriver: true
+      - name: Install Google Chrome
+        run: |
+            # Download and install Google Chrome from official sources
+            wget -O google-chrome-stable_current_amd64.deb https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+            sudo dpkg -i google-chrome-stable_current_amd64.deb
+            sudo apt-get -f install -y  # Fix any dependency issues
+
+      - name: Install ChromeDriver
+        run: |
+                # Get the latest version number
+                VERSION=$(curl -sS https://chromedriver.storage.googleapis.com/LATEST_RELEASE)
+                
+                # Download and install ChromeDriver
+                wget -O chromedriver_linux64.zip https://chromedriver.storage.googleapis.com/${VERSION}/chromedriver_linux64.zip
+                unzip chromedriver_linux64.zip -d ~/chromedriver
+                sudo mv ~/chromedriver/chromedriver /usr/bin/chromedriver
+                sudo chmod +x /usr/bin/chromedriver
 
       - name: Verify installations
         run: |
