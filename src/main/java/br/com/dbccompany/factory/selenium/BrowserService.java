@@ -20,12 +20,6 @@ public class BrowserService {
         options.addArguments("--disable-dev-shm-usage");
         options.addArguments("--disable-gpu");
         options.addArguments("--remote-debugging-port=9222");
-        options.addArguments("--disable-software-rasterizer");
-
-// Add ChromeDriver logging option
-        System.setProperty("webdriver.chrome.logfile", "/tmp/chromedriver.log");
-        System.setProperty("webdriver.chrome.verboseLogging", "true");
-
 
         driver = new ChromeDriver();
         wait = new WebDriverWait(driver, Duration.ofSeconds(10));

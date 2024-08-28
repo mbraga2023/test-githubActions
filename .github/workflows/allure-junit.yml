@@ -59,9 +59,10 @@ jobs:
       - name: Run tests and capture logs
         run: |
                 mkdir -p /tmp/chromedriver-logs
-                mvn clean test -Dchrome.headless=true -Dwebdriver.chrome.logfile=/tmp/chromedriver-logs/chromedriver.log
+                export CHROMEDRIVER_LOG_FILE=/tmp/chromedriver-logs/chromedriver.log
+                mvn clean test -Dchrome.headless=true -Dwebdriver.chrome.logfile=$CHROMEDRIVER_LOG_FILE
                 ls -la /tmp/chromedriver-logs/
-                cat /tmp/chromedriver-logs/chromedriver.log || echo "ChromeDriver log file not found"
+                cat $CHROMEDRIVER_LOG_FILE || echo "ChromeDriver log file not found"
 
       - name: Install dependencies
         run: mvn install -DskipTests
