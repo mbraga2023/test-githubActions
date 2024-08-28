@@ -56,19 +56,12 @@ jobs:
           sleep 10
           cat $CHROME_LOG_FILE
 
-      - name: Capture ChromeDriver logs
+      - name: Run tests
         run: |
           mkdir -p /tmp/chromedriver-logs
           export CHROMEDRIVER_LOG_FILE=/tmp/chromedriver-logs/chromedriver.log
-          mvn clean test -Dchrome.headless=true
+          mvn clean test -Dchrome.headless=true -Dwebdriver.chrome.logfile=$CHROMEDRIVER_LOG_FILE
           cat $CHROMEDRIVER_LOG_FILE
-
-
-      - name: Install dependencies
-        run: mvn install -DskipTests
-
-      - name: Run tests
-        run: mvn clean test -Dchrome.headless=true
 
       - name: Load test report history
         uses: actions/checkout@v4

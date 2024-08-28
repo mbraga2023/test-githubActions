@@ -15,12 +15,16 @@ public class BrowserService {
 
     public void initChromeDriver(String url) {
         ChromeOptions options = new ChromeOptions();
-        if (System.getProperty("chrome.headless") != null && System.getProperty("chrome.headless").equals("true")) {
-            options.addArguments("--headless"); // Run in headless mode
-        }
-        options.addArguments("--no-sandbox"); // Disable sandbox
-        options.addArguments("--disable-dev-shm-usage"); // Overcome resource limits
-        options.addArguments("--disable-gpu"); // Disable GPU acceleration
+        options.addArguments("--headless");
+        options.addArguments("--no-sandbox");
+        options.addArguments("--disable-dev-shm-usage");
+        options.addArguments("--disable-gpu");
+        options.addArguments("--remote-debugging-port=9222");
+        options.addArguments("--disable-software-rasterizer");
+
+// Add ChromeDriver logging option
+        System.setProperty("webdriver.chrome.logfile", "/tmp/chromedriver.log");
+        System.setProperty("webdriver.chrome.verboseLogging", "true");
 
 
         driver = new ChromeDriver();
