@@ -12,21 +12,24 @@ jobs:
           distribution: zulu
           java-version: 17
 
-      - name: Remove existing Chrome and ChromeDriver
+      - name: Clean up existing installations
         run: |
-            sudo apt-get remove --purge -y google-chrome-stable chromium-browser chromedriver || true
-            sudo apt-get autoremove -y
+          sudo apt-get remove --purge -y google-chrome-stable chromium-browser chromedriver || true
+          sudo apt-get autoremove -y || true
+          sudo rm -rf /usr/bin/google-chrome /usr/bin/chromedriver || true
+
 
       - name: Install necessary dependencies
         run: |
-            sudo apt-get update
-            sudo apt-get install -y wget unzip libnss3 libgconf-2-4
+          sudo apt-get update
+          sudo apt-get install -y wget unzip libnss3 libgconf-2-4 libxss1 libappindicator3-1 libxtst6 libgdk-pixbuf2.0-0 libasound2
+
 
       - name: Install Google Chrome
         run: |
                 wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
                 sudo dpkg -i google-chrome-stable_current_amd64.deb || true
-                sudo apt-get install -f -y  # Fix any dependency issues
+                sudo apt-get install -f -y 
 
       - name: Install ChromeDriver
         run: |
@@ -38,15 +41,20 @@ jobs:
 
       - name: Verify installations
         run: |
-              echo "Google Chrome version:"
               google-chrome --version || echo "Google Chrome is not installed"
-              echo "Chromium version:"
               chromium-browser --version || echo "Chromium is not installed"
-              echo "ChromeDriver version:"
               chromedriver --version || echo "ChromeDriver is not installed"
          
               ls -la /usr/bin/google-chrome
               ls -la /usr/bin/chromedriver
+
+      - name: Run tests and capture logs
+        run: |
+          mkdir -p /tmp/chrome-logs
+          export CHROME_LOG_FILE=/tmp/chrome-logs/chrome.log
+          mvn clean test -Dchrome.headless=true
+          cat /tmp/chrome-logs/chrome.log
+
 
       - name: Install dependencies
         run: mvn install -DskipTests
