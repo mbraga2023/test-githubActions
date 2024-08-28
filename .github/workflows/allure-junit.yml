@@ -50,19 +50,18 @@ jobs:
 
       - name: Run Chrome with debug flags
         run: |
-                mkdir -p /tmp/chrome-logs
-                export CHROME_LOG_FILE=/tmp/chrome-logs/chrome.log
-               /usr/bin/google-chrome --headless --no-sandbox --disable-dev-shm-usage --remote-debugging-port=9222 > $CHROME_LOG_FILE 2>&1 &
-               sleep 30
-              cat $CHROME_LOG_FILE
+            mkdir -p /tmp/chrome-logs
+            export CHROME_LOG_FILE=/tmp/chrome-logs/chrome.log
+            /usr/bin/google-chrome --headless --no-sandbox --disable-dev-shm-usage --remote-debugging-port=9222 > $CHROME_LOG_FILE 2>&1 &
+            sleep 30
+            cat $CHROME_LOG_FILE
 
       - name: Run tests and capture logs
         run: |
                 mkdir -p /tmp/chromedriver-logs
-                export CHROMEDRIVER_LOG_FILE=/tmp/chromedriver-logs/chromedriver.log
-                mvn clean test -Dchrome.headless=true -Dwebdriver.chrome.logfile=$CHROMEDRIVER_LOG_FILE
+                mvn clean test -Dchrome.headless=true -Dwebdriver.chrome.logfile=/tmp/chromedriver-logs/chromedriver.log
                 ls -la /tmp/chromedriver-logs/
-                cat $CHROMEDRIVER_LOG_FILE || echo "ChromeDriver log file not found"
+                cat /tmp/chromedriver-logs/chromedriver.log || echo "ChromeDriver log file not found"
 
       - name: Install dependencies
         run: mvn install -DskipTests
