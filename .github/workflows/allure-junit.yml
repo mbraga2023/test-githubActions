@@ -56,12 +56,18 @@ jobs:
             sleep 10
             cat $CHROME_LOG_FILE
 
-      - name: Run tests
+      - name: Run tests and capture logs
         run: |
                 mkdir -p /tmp/chromedriver-logs
                 mvn clean test -Dchrome.headless=true -Dwebdriver.chrome.logfile=/tmp/chromedriver-logs/chromedriver.log
+                ls -la /tmp/chromedriver-logs/
                 cat /tmp/chromedriver-logs/chromedriver.log || echo "ChromeDriver log file not found"
-            
+
+      - name: Install dependencies
+        run: mvn install -DskipTests
+
+      - name: Run tests
+        run: mvn clean test -Dchrome.headless=true
 
       - name: Load test report history
         uses: actions/checkout@v4
