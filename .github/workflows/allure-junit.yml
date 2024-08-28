@@ -20,7 +20,7 @@ jobs:
       - name: Install necessary dependencies
         run: |
             sudo apt-get update
-            sudo apt-get install -y wget unzip
+            sudo apt-get install -y wget unzip libnss3 libgconf-2-4
 
       - name: Install Google Chrome
         run: |
@@ -30,30 +30,18 @@ jobs:
 
       - name: Install ChromeDriver
         run: |
-          # Download and install ChromeDriver from the direct link
-          wget -O chromedriver-linux64.zip https://storage.googleapis.com/chrome-for-testing-public/128.0.6613.84/linux64/chromedriver-linux64.zip
-          unzip chromedriver-linux64.zip -d ~/chromedriver
-
-          # Debug: List contents of the extracted directory
-          ls -la ~/chromedriver/chromedriver-linux64
-
-          # Move ChromeDriver to the correct location
-          sudo mv ~/chromedriver/chromedriver-linux64/chromedriver /usr/bin/chromedriver
-          sudo chmod +x /usr/bin/chromedriver
-
-      - name: Install necessary dependencies
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y wget unzip libnss3 libgconf-2-4
+                wget -O chromedriver-linux64.zip https://storage.googleapis.com/chrome-for-testing-public/128.0.6613.84/linux64/chromedriver-linux64.zip
+                unzip chromedriver-linux64.zip -d ~/chromedriver
+                ls -la ~/chromedriver/chromedriver-linux64
+                sudo mv ~/chromedriver/chromedriver-linux64/chromedriver /usr/bin/chromedriver
+                sudo chmod +x /usr/bin/chromedriver
 
       - name: Verify installations
         run: |
-          sudo chmod +x /usr/bin/google-chrome
-          sudo chmod +x /usr/bin/chromedriver
-    
-          google-chrome --version || echo "Google Chrome is not installed"
-          chromium-browser --version || echo "Chromium is not installed"
-          chromedriver --version
+                echo "Google Chrome version:"
+                google-chrome --version || echo "Google Chrome is not installed"
+                echo "Chromedriver version:"
+                chromedriver --version || echo "ChromeDriver is not installed"
 
       - name: Install dependencies
         run: mvn install -DskipTests
