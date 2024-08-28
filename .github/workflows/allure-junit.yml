@@ -17,34 +17,10 @@ jobs:
             sudo apt-get remove --purge -y google-chrome-stable chromium-browser chromedriver || true
             sudo apt-get autoremove -y
 
-      - name: Install specific versions of Chrome and ChromeDriver
-        run: |
-            # Install dependencies
-            sudo apt-get update
-            sudo apt-get install -y wget unzip
-            
-            # Download and install Chrome
-            wget -O chrome-linux64.zip https://storage.googleapis.com/chrome-for-testing-public/128.0.6613.84/linux64/chrome-linux64.zip
-            unzip chrome-linux64.zip -d ~/chrome
-            sudo mv ~/chrome/chrome-linux64/chrome /usr/bin/google-chrome
-            sudo chmod +x /usr/bin/google-chrome
-            
-            # Download and install ChromeDriver
-          wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-        
-
-      # Debug: List contents of the extracted directory
-            ls -la ~/chromedriver
-            
-            # Move ChromeDriver to the correct location
-            sudo mv ~/chromedriver/chromedriver /usr/bin/chromedriver
-            sudo chmod +x /usr/bin/chromedriver
-            
-            # Optionally, install chrome-headless-shell
-            wget -O chrome-headless-shell-linux64.zip https://storage.googleapis.com/chrome-for-testing-public/128.0.6613.84/linux64/chrome-headless-shell-linux64.zip
-            unzip chrome-headless-shell-linux64.zip -d ~/chrome-headless-shell
-            sudo mv ~/chrome-headless-shell/chrome-headless-shell /usr/bin/chrome-headless-shell
-            sudo chmod +x /usr/bin/chrome-headless-shell
+      - uses: browser-actions/setup-chrome@v1
+        with:
+          chrome-version: 128
+          install-chromedriver: true
 
       - name: Verify installations
         run: |
